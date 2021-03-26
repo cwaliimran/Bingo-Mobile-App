@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.HomeActivity">
+
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/action_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/ttcommons_medium"
+            android:text="@string/new_session"
+            android:textColor="@color/primaryDark"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/etSessionId"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/et_mt"
+            android:background="@drawable/rounded_edittext"
+            android:fontFamily="@font/ttcommons_regular"
+            android:hint="@string/enter_session_id"
+            android:inputType="text"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/darkGray"
+            android:textColorHint="@color/darkGray"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnJoinSession"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/et_mt"
+            android:background="@drawable/btn_rounded"
+            android:backgroundTint="@color/white"
+            android:onClick="JoinSession"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/join"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/ttcommons_medium"
+            android:text="@string/existind_sessions"
+            android:textColor="@color/primaryDark"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:stackFromEnd="true"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:reverseLayout="true"
+            tools:listitem="@layout/row_existind_sessions" />
+    </LinearLayout>
+</LinearLayout>
