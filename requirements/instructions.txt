@@ -1,0 +1,11 @@
+please try this API (using POST)
+https://6048939bb801a40017cce09c.mockapi.io/api/ManagePlayer?game-id=&session-id=&player-id==&op=JOIN&ver=1
+you should replace the place holders with real data from user.
+Currently you can put anything and you should get same mock response
+Let me know if you get the response
+
+REST Methods should use POST,
+But please try to make it easy to replace the POST to GET,
+because In the mock server, I put “ok” response to the POST (working flow),
+but I put error or different response to the GET,
+so that you can check different responses
