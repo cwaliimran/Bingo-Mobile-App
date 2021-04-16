@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.bingoplayer.app.R;
 import com.bingoplayer.app.adapters.BoardAdapter;
 import com.bingoplayer.app.databinding.ActivityBoardBinding;
+import com.bingoplayer.app.models.ModelBoard;
 import com.bingoplayer.app.utils.APIClient;
 import com.bingoplayer.app.utils.ApiInterface;
 import com.bingoplayer.app.utils.Constants;
-import com.bingoplayer.app.models.ModelBoard;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +30,10 @@ public class BoardActivity extends BaseActivity {
     ArrayList<ModelBoard.Cell> cells = new ArrayList<>();
     Long boardWidth;
     ActivityBoardBinding binding;
+    String sessionId, gameId, playerId;
+    String op = "JOIN";
+    String ver = "1";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,13 @@ public class BoardActivity extends BaseActivity {
         setContentView(binding.getRoot());
         context = this;
         initViews();
+        if (getIntent().getExtras() != null) {
+            playerId = getIntent().getStringExtra("player_id");
+            gameId = getIntent().getStringExtra("game_id");
+            sessionId = getIntent().getStringExtra("session_id");
+            Log.d(Constants.TAG, playerId + " " + gameId + " " + sessionId);
+        }
+
         //get boards
         getBoards(BoardActivity.this);
     }
@@ -51,19 +62,12 @@ public class BoardActivity extends BaseActivity {
 
     private void getBoards(final Activity context) {
         final ProgressDialog progressDialog = ProgressDialog.show(context, getString(R.string.please_wait), getString(R.string.loading), true);
-        String game_id = "";
-        String session_id = "";
-        String player_id = "=";
-        String op = "JOIN";
-        String ver = "1";
-
         ApiInterface apiInterface = APIClient.getRetrofitInstance().create(ApiInterface.class);
-        Call<ModelBoard> call = apiInterface.getBoards(game_id, session_id, player_id, op, ver);
+        Call<ModelBoard> call = apiInterface.getBoards(gameId, sessionId, playerId, op, ver);
         Log.d("response url", "URL==" + call.request().url());
         call.enqueue(new Callback<ModelBoard>() {
             @Override
             public void onResponse(@NotNull Call<ModelBoard> call, @NotNull Response<ModelBoard> response) {
-                Log.d(Constants.TAG, "main: " + new Gson().toJson(response.body()));
                 if (response.isSuccessful()) {
                     Log.d("response Success: ", new Gson().toJson(response.body()));
                     assert response.body() != null;
@@ -74,7 +78,7 @@ public class BoardActivity extends BaseActivity {
                         int finalCells = Integer.parseInt(width);
                         Log.d(Constants.TAG, "boardWidth:" + finalCells);
                         //create board
-                        setBoardAdapter(finalCells);
+                        setBoardAdapter(finalCells, gameId, sessionId, playerId, op, ver);
                         progressDialog.dismiss();
                     } else {
                         Toast.makeText(context, "API result is not equal to - OK", Toast.LENGTH_LONG).show();
@@ -105,10 +109,10 @@ public class BoardActivity extends BaseActivity {
         });
     }
 
-    private void setBoardAdapter(int finalCells) {
+    private void setBoardAdapter(int finalCells, String gameId, String sessionId, String playerId, String op, String ver) {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(context, finalCells, GridLayoutManager.VERTICAL, false));
-        BoardAdapter adapter = new BoardAdapter(context, cells);
+        BoardAdapter adapter = new BoardAdapter(context, cells, gameId, sessionId, playerId, op, ver);
         binding.recyclerView.setAdapter(adapter);
     }
 }

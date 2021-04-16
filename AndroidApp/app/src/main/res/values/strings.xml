@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Bingo Player</string>
-    <string name="new_session">New Session</string>
+    <string name="join_session">Join Session</string>
     <string name="enter_session_id">Enter session id</string>
     <string name="join">Join</string>
     <string name="existind_sessions">Existind Sessions</string>
