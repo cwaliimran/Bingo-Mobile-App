@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bingoplayer.app.R;
@@ -63,11 +64,18 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         //show data from session model
         ModelBoard.Cell modelBoard = model.get(position);
         holder.binding.tvTitle.setText(String.format("%s", modelBoard.getAnswer()));
-        holder.binding.tvTitle.setOnClickListener(v -> {
-            holder.binding.tvTitle.setBackground(context.getDrawable(R.drawable.rounded_edittext_colored));
+        if (modelBoard.getAnswered()) {
+            holder.binding.tvTitle.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_edittext_colored));
             holder.binding.tvTitle.setTextColor(context.getResources().getColor(R.color.white));
+        }
+        holder.binding.tvTitle.setOnClickListener(v -> {
+            if (!modelBoard.getAnswered()) {
+                holder.binding.tvTitle.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_edittext_colored));
+                holder.binding.tvTitle.setTextColor(context.getResources().getColor(R.color.white));
+             //   submitAnswer(modelBoard.getX(), modelBoard.getY(), modelBoard.getAnswer());
+            }
             //call request to check if answer was correct or not
-            submitAnswer(modelBoard.getX(), modelBoard.getY(), modelBoard.getAnswer());
+            //  submitAnswer(modelBoard.getX(), modelBoard.getY(), modelBoard.getAnswer());
         });
     }
 
@@ -94,7 +102,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.MyViewHolder
         jsonParams.put("answer", answer);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonParams)).toString());
 
-        Call<JSONObject> call = apiInterface.submitAnswer(body);
+        Call<JSONObject> call = apiInterface.submitAnswer(gameId, sessionId, playerId, op, body);
 //        Call<JSONObject> call = apiInterface.submitAnswer(gameId, sessionId, playerId, ver, body);
         Log.d("response url", "URL==" + call.request().url());
         call.enqueue(new Callback<JSONObject>() {

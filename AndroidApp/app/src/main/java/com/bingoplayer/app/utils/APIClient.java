@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
 
    //server
-    public static final String BASE_URL = "https://6048939bb801a40017cce09c.mockapi.io/api/";
+//    public static final String BASE_URL = "https://6048939bb801a40017cce09c.mockapi.io/api/";
+    public static final String BASE_URL = "https://606b158af8678400172e58d5.mockapi.io/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

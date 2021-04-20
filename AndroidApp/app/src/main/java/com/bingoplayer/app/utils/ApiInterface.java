@@ -27,11 +27,12 @@ public interface ApiInterface {
 
 
     @POST("BingoAnswer/")
+    @FormUrlEncoded
     Call<JSONObject> submitAnswer(
-//            @Field("game-id") String gameid,
-//            @Field("session-id") String sessionid,
-//            @Field("player-id") String playerid,
-//            @Field("ver") String ver,
+            @Field("game-id") String gameid,
+            @Field("session-id") String sessionid,
+            @Field("player-id") String playerid,
+            @Field("ver") String ver,
             @Body RequestBody params
     );
 /*
