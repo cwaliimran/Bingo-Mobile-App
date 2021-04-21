@@ -81,8 +81,9 @@ public class BoardActivity extends BaseActivity {
                         setBoardAdapter(finalCells, gameId, sessionId, playerId, op, ver);
                         progressDialog.dismiss();
                     } else {
-                        Toast.makeText(context, "API result is not equal to - OK", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, ""+response.body().getResult(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
+                        finish();
                     }
 
                 } else {
