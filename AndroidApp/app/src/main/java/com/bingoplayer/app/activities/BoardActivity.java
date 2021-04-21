@@ -81,7 +81,7 @@ public class BoardActivity extends BaseActivity {
                         setBoardAdapter(finalCells, gameId, sessionId, playerId, op, ver);
                         progressDialog.dismiss();
                     } else {
-                        Toast.makeText(context, ""+response.body().getResult(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "" + response.body().getResult(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                         finish();
                     }
@@ -104,7 +104,7 @@ public class BoardActivity extends BaseActivity {
             public void onFailure(@NotNull Call<ModelBoard> call, @NotNull Throwable t) {
                 // Log error here since request failed
                 Log.e("Response", "onFailure" + t.toString());
-                Toast.makeText(context, "Fail", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "" + t.toString(), Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }
         });

@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-    @POST("ManagePlayer/")
+    @POST("ManagePlayer")
     @FormUrlEncoded
     Call<ModelBoard> getBoards(
             @Field("game-id") String gameid,
