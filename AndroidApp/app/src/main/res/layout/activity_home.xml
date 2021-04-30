@@ -25,6 +25,7 @@
             android:text="@string/join_session"
             android:textColor="@color/primaryDark"
             android:textSize="20sp" />
+
         <EditText
             android:id="@+id/etPlayerId"
             android:layout_width="match_parent"
@@ -34,17 +35,17 @@
             android:fontFamily="@font/ttcommons_regular"
             android:hint="Player id"
             android:inputType="text"
-            android:text="%3Cuser%20nick%3E"
             android:padding="8dp"
             android:singleLine="true"
+            android:text="%3Cuser%20nick%3E"
             android:textColor="@color/darkGray"
             android:textColorHint="@color/darkGray"
             android:textSize="16sp" />
+
         <EditText
             android:id="@+id/etGameId"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="%3Cuser-game-id%3E"
             android:layout_marginTop="@dimen/et_mt"
             android:background="@drawable/rounded_edittext"
             android:fontFamily="@font/ttcommons_regular"
@@ -52,6 +53,7 @@
             android:inputType="text"
             android:padding="8dp"
             android:singleLine="true"
+            android:text="%3Cuser-game-id%3E"
             android:textColor="@color/darkGray"
             android:textColorHint="@color/darkGray"
             android:textSize="16sp" />
@@ -65,13 +67,12 @@
             android:fontFamily="@font/ttcommons_regular"
             android:hint="Session id"
             android:inputType="text"
-            android:text="%3Cuser-session-id%3E"
             android:padding="8dp"
             android:singleLine="true"
+            android:text="%3Cuser-session-id%3E"
             android:textColor="@color/darkGray"
             android:textColorHint="@color/darkGray"
             android:textSize="16sp" />
-
 
 
         <Button
@@ -81,33 +82,33 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/et_mt"
             android:background="@drawable/btn_rounded"
-            android:backgroundTint="@color/white"
             android:onClick="JoinSession"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="@string/join"
+            android:textAllCaps="false"
             android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/ttcommons_medium"
             android:text="@string/existind_sessions"
             android:textColor="@color/primaryDark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
-            app:stackFromEnd="true"
             android:scrollbars="none"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:reverseLayout="true"
+            app:stackFromEnd="true"
             tools:listitem="@layout/row_existind_sessions" />
     </LinearLayout>
 </LinearLayout>

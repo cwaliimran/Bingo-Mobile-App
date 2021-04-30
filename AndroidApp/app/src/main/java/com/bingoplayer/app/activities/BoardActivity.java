@@ -27,7 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BoardActivity extends BaseActivity {
-    ArrayList<ModelBoard.Cell> cells = new ArrayList<>();
+    ModelBoard.Children model;
+    ArrayList<ModelBoard.Child> cells = new ArrayList<>();
     Long boardWidth;
     ActivityBoardBinding binding;
     String sessionId, gameId, playerId;
@@ -71,17 +72,17 @@ public class BoardActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     Log.d("response Success: ", new Gson().toJson(response.body()));
                     assert response.body() != null;
-                    if (response.body().getResult().equals("ok")) {
-                        cells.addAll(response.body().getBoard().getCells());
-                        boardWidth = response.body().getBoard().getWidth();
+
+                    if (response.body().getChildren().getResult().getValue().equals("ok")) {
+                        model = response.body().getChildren();
+                        cells.addAll(response.body().getChildren().getBoard().getChildren().getCells().getChildren());
+                        boardWidth = response.body().getChildren().getBoard().getChildren().getWidth().getValue();
                         String width = boardWidth.toString();
                         int finalCells = Integer.parseInt(width);
-                        Log.d(Constants.TAG, "boardWidth:" + finalCells);
-                        //create board
                         setBoardAdapter(finalCells, gameId, sessionId, playerId, op, ver);
                         progressDialog.dismiss();
                     } else {
-                        Toast.makeText(context, "" + response.body().getResult(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "" + response.body().getChildren().getResult(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                         finish();
                     }
@@ -92,10 +93,12 @@ public class BoardActivity extends BaseActivity {
                         assert response.errorBody() != null;
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         String errorMsg = jObjError.getString("message");
+                        Log.d(TAG, "onResponse: try" +errorMsg);
                         Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
+                    finish();
                 }
             }
 
@@ -103,17 +106,19 @@ public class BoardActivity extends BaseActivity {
             @Override
             public void onFailure(@NotNull Call<ModelBoard> call, @NotNull Throwable t) {
                 // Log error here since request failed
-                Log.e("Response", "onFailure" + t.toString());
+                Log.d("Response", "onFailure" + t.toString());
                 Toast.makeText(context, "" + t.toString(), Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
+                finish();
             }
         });
     }
 
     private void setBoardAdapter(int finalCells, String gameId, String sessionId, String playerId, String op, String ver) {
-        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(context, finalCells, GridLayoutManager.VERTICAL, false));
         BoardAdapter adapter = new BoardAdapter(context, cells, gameId, sessionId, playerId, op, ver);
         binding.recyclerView.setAdapter(adapter);
     }
+
+
 }

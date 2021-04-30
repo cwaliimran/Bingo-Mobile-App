@@ -1,6 +1,7 @@
 package com.bingoplayer.app.utils;
 
 
+import com.bingoplayer.app.models.ModelBingoAnswer;
 import com.bingoplayer.app.models.ModelBoard;
 
 import org.json.JSONObject;
@@ -35,12 +36,11 @@ public interface ApiInterface {
     );
 
     @POST("BingoAnswer/")
-    @FormUrlEncoded
-    Call<JSONObject> submitAnswer(
-            @Field("game-id") String gameid,
-            @Field("session-id") String sessionid,
-            @Field("player-id") String playerid,
-            @Field("ver") String ver,
+    Call<ModelBingoAnswer> submitAnswer(
+            @Query("game-id") String gameid,
+            @Query("session-id") String sessionid,
+            @Query("player-id") String playerid,
+            @Query("ver") String ver,
             @Body RequestBody params
     );
 /*

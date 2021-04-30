@@ -11,22 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity {
     public Context context;
     Intent intent;
-    //random id
-    public String randomId;
-    //intent value
-    String comeFrom;
-    //check order for payment
-    boolean isCustomOrder = false;
-    //order now
-    String chat_id, order_type, service_id, status, user_id, title, description, orderNum;
-    String created_at;
-    //check if user is from order chat then load chat against order otherwiswe load general chats (which was created by clicking on chat icon on home services
-    boolean isOrderChat = false;
-    String order_id, message, orderDetails, created_at_time, created_at_date;
-    int price;
-
-
-    //
+    public String TAG = "response";
 
     protected void gotoActivity(Class activity) {
         intent = new Intent(context, activity);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bingoplayer.app.R;
 import com.bingoplayer.app.adapters.ExistindSessionsAdapter;
 import com.bingoplayer.app.databinding.ActivityHomeBinding;
 import com.bingoplayer.app.utils.Constants;
@@ -38,15 +39,15 @@ public class HomeActivity extends BaseActivity {
 
     private void initViews() {
         binding.actionBar.ivBack.setVisibility(View.GONE);
-        binding.actionBar.tvActivityTitle.setText("Bingo Player");
+        binding.actionBar.tvActivityTitle.setText(getResources().getString(R.string.app_name));
     }
 
     public void JoinSession(View view) {
         if (checkValidation()) {
             GlobalClass.hideKeyboard(HomeActivity.this);
-            binding.etPlayerId.setText("");
-            binding.etGameId.setText("");
-            binding.etSessionId.setText("");
+//            binding.etPlayerId.setText("");
+//            binding.etGameId.setText("");
+//            binding.etSessionId.setText("");
 //            sessions = Shared.getListString(Constants.EXISTING_SESSIONS);
 //            sessions.add(sessionId);
 //            Shared.putListString(Constants.EXISTING_SESSIONS, sessions);
